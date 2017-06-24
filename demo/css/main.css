@@ -1,0 +1,17 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+iframe {
+  width: 100%;
+  border: none;
+}
+
+header,
+footer {
+  display: block;
+  height: 200px;
+  background: grey;
+}
