@@ -19,6 +19,8 @@ Nothing more, nothing less.
 
 As the scripts is using the context of `window.parent` it presumes that the iFrame has **cross-origin** access to its parent. Although, if this is not the case, you may want to take a look at [PostEvent](https://github.com/julianxhokaxhiu/PostEvent), which will provide you a full cross-origin event handler. Although the architecture and the implementation of it, it's up to you.
 
+It's also known to work up to IE11+. If you're willing to support older IEs, feel free to drop a PR.
+
 # How to use
 
 As simple as it should be. Download the [polyfill](src/polyfill.js) and add it into your iFrame HTML, like on this example:
