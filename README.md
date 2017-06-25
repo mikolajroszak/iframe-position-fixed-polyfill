@@ -13,6 +13,8 @@ Basically the code is all about listening to the parent `scroll` event, capturin
 
 When the event `load` will be triggered, the polyfill will initialize itself, searching through your stylesheets where you have declared a `position:fixed`, it will lookup into elements using `querySelectorAll` and it will initialize the polyfill on top of any element found.
 
+Not only elements that are already existing in the DOM will benefit from this polyfill, but also future appended elements anywhere in the DOM will benefit from this polyfill too. Everytime a new element will be appended, the polyfill will initialize those elements, leaving untouched the already initialized once. All of this, thanks to the `MutationObserver` functionality.
+
 Nothing more, nothing less.
 
 # Limitations
