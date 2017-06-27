@@ -15,15 +15,19 @@
   }
   // -------------------------------------------------------------------
   function initPolyfill () {
-    loop( document.styleSheets, function ( styleSheet ){
-      loop( styleSheet.rules, function ( rule ){
-        if ( rule.style.position == 'fixed' ) {
-          loop( document.querySelectorAll( rule.selectorText ), function ( element ){
-            new iFramePositionFixPolyfill( element, rule.style );
-          })
-        }
-      })
-    });
+    if ( document.styleSheets ) {
+      loop( document.styleSheets, function ( styleSheet ){
+        loop( styleSheet.rules, function ( rule ){
+          if ( rule.style ) {
+            if ( rule.style.position == 'fixed' ) {
+              loop( document.querySelectorAll( rule.selectorText ), function ( element ){
+                new iFramePositionFixPolyfill( element, rule.style );
+              })
+            }
+          }
+        })
+      });
+    }
   }
   // -------------------------------------------------------------------
   function iFramePositionFixPolyfill ( element, initialStyles ) {
