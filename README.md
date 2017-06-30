@@ -27,7 +27,7 @@ It's also known to work up to IE11+. If you're willing to support older IEs, fee
 
 As simple as it should be. Download the [polyfill](src/polyfill.js) and add it into your iFrame HTML, like on this example:
 
-```
+```html
 <!doctype html>
 <html>
   <head>
@@ -41,6 +41,33 @@ As simple as it should be. Download the [polyfill](src/polyfill.js) and add it i
 ```
 
 Refresh the page and...enjoy :)
+
+# Configuration
+
+Of course you can configure the behavior of the Polyfill if you prefer, especially in situations where you embed you iFrame in a container that will scroll, and block the main window scroll. In such cases you will find handy these three options:
+
+- _Boolean_ **debug:** set to `true` if you want to see the updated values of the scrollTop per Element.
+- _DOMElement_ **parent:** defines on which element the _scroll_ event will listen, by default is set to `window.parent`
+- _String_ **parentScrollTopProperty:** defines which property to read to trach the Y position of the scrollbar, by default is `pageYOffset`
+
+You can set your configurations by defining these properties **_before_** you load the polyfill, like on this example:
+
+```html
+<!doctype html>
+<html>
+  <head>
+    ...
+  </head>
+  <body>
+    <script>
+      window.iFramePositionFixPolyfillConfiguration = {
+        debug: true
+      }
+    </script>
+    <script src="src/polyfill.js"></script>
+  </body>
+</html>
+```
 
 # Demo
 
