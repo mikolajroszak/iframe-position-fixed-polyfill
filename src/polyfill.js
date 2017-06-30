@@ -1,4 +1,15 @@
 (function(window){
+  // Prepare configuration
+  window.iFramePositionFixPolyfillConfiguration = window.iFramePositionFixPolyfillConfiguration || {};
+  // Merge configuration
+  window.iFramePositionFixPolyfillConfiguration.debug = window.iFramePositionFixPolyfillConfiguration.debug || false;
+  window.iFramePositionFixPolyfillConfiguration.parent = window.iFramePositionFixPolyfillConfiguration.parent || window.parent;
+  window.iFramePositionFixPolyfillConfiguration.parentScrollTopProperty = window.iFramePositionFixPolyfillConfiguration.parentScrollTopProperty || 'pageYOffset';
+  // Static helpers
+  window.iFramePositionFixPolyfillConfiguration.log = function () {
+    if ( window.iFramePositionFixPolyfillConfiguration.debug )
+      console.log( '>> iFramePositionFixPolyfillConfiguration:', arguments );
+  }
   // Initialize this polyfill when the document has been fully loaded, including CSS
   window.addEventListener('load', initPolyfill, false);
   // Observe for new added elements
@@ -39,11 +50,12 @@
     if ( !isInitialized ) {
       // Define properties
       me.element = element;
-      me.initialTop = initialStyles.top.indexOf('%') > -1 ? ( window.parent.innerHeight / 100 * initialStyles.top.slice(0,-1) ) : element.offsetTop;
+      me.initialTop = initialStyles.top.indexOf('%') > -1 ? ( window.iFramePositionFixPolyfillConfiguration.parent.innerHeight / 100 * initialStyles.top.slice(0,-1) ) : element.offsetTop;
       me.updateTimeout = null;
 
       // Define internal functions
       me.update = function ( scrollTop ) {
+        window.iFramePositionFixPolyfillConfiguration.log( 'updateScroll', me, scrollTop );
         me.element.style.top = me.initialTop + ( scrollTop >= window.frameElement.offsetTop ? scrollTop - window.frameElement.offsetTop : scrollTop ) + 'px';
       }
 
@@ -53,9 +65,9 @@
 
       // When the parent scrolls, attempt to update the element position ever 500ms.
       // If another scroll event comes in place, cancel the previous attempt and retry.
-      window.parent.addEventListener( 'scroll', function ( event ){
+      window.iFramePositionFixPolyfillConfiguration.parent.addEventListener( 'scroll', function ( event ){
         if ( me.updateTimeout ) clearTimeout( me.updateTimeout );
-        me.updateTimeout = setTimeout( function(){ me.update( window.parent.pageYOffset ) }, 100 );
+        me.updateTimeout = setTimeout( function(){ me.update( window.iFramePositionFixPolyfillConfiguration.parent[ window.iFramePositionFixPolyfillConfiguration.parentScrollTopProperty ] ) }, 100 );
       }, true)
     }
   }
