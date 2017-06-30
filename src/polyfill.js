@@ -9,8 +9,10 @@
   });
   // -------------------------------------------------------------------
   function loop ( elements, callback ) {
-    for ( var i = 0; i < elements.length; i++ ) {
-      if ( callback ) callback( elements[i] );
+    if ( elements ) {
+      for ( var i = 0; i < elements.length; i++ ) {
+        if ( callback ) callback( elements[i] );
+      }
     }
   }
   // -------------------------------------------------------------------
