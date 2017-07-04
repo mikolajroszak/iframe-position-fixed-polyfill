@@ -8,30 +8,33 @@
   window.iFramePositionFixPolyfillConfiguration.updateScrollTimeout = 100;
   // *** Static helpers ***
   // log: log something in the console, if the debug flag is set
-  window.iFramePositionFixPolyfillConfiguration.log = function () {
-    if ( window.iFramePositionFixPolyfillConfiguration.debug )
-      console.log( '>> iFramePositionFixPolyfillConfiguration:', arguments );
-  };
+  if ( !('log' in window.iFramePositionFixPolyfillConfiguration) )
+    window.iFramePositionFixPolyfillConfiguration.log = function () {
+      if ( window.iFramePositionFixPolyfillConfiguration.debug )
+        console.log( '>> iFramePositionFixPolyfillConfiguration:', arguments );
+    };
   // setInitialState: set the initial state of the element
-  window.iFramePositionFixPolyfillConfiguration.setInitialState = function ( initialStyles ) {
-    var me = this;
+  if ( !('setInitialState' in window.iFramePositionFixPolyfillConfiguration) )
+    window.iFramePositionFixPolyfillConfiguration.setInitialState = function ( initialStyles ) {
+      var me = this;
 
-    me.initialTop = initialStyles.top.indexOf('%') > -1 ? ( window.iFramePositionFixPolyfillConfiguration.parent.innerHeight / 100 * initialStyles.top.slice(0,-1) ) : me.element.offsetTop;
-    me.element.style.top = me.initialTop + 'px';
-  };
+      me.initialTop = initialStyles.top.indexOf('%') > -1 ? ( window.iFramePositionFixPolyfillConfiguration.parent.innerHeight / 100 * initialStyles.top.slice(0,-1) ) : me.element.offsetTop;
+      me.element.style.top = me.initialTop + 'px';
+    };
   // updateState: updates the element state on scroll
-  window.iFramePositionFixPolyfillConfiguration.updateState = function () {
-    var me = this,
-        scrollTop = window.iFramePositionFixPolyfillConfiguration.parent[ window.iFramePositionFixPolyfillConfiguration.parentScrollTopProperty ];
+  if ( !('updateState' in window.iFramePositionFixPolyfillConfiguration) )
+    window.iFramePositionFixPolyfillConfiguration.updateState = function () {
+      var me = this,
+          scrollTop = window.iFramePositionFixPolyfillConfiguration.parent[ window.iFramePositionFixPolyfillConfiguration.parentScrollTopProperty ];
 
-    if ( me.updateTimeout ) clearTimeout( me.updateTimeout );
-    me.updateTimeout = setTimeout( function() {
-      window.iFramePositionFixPolyfillConfiguration.log( 'updateScroll', me, scrollTop );
-      window.requestAnimationFrame( function (){
-        me.element.style.top = me.initialTop + ( scrollTop >= window.frameElement.offsetTop ? scrollTop - window.frameElement.offsetTop : scrollTop ) + 'px';
-      });
-    }, window.iFramePositionFixPolyfillConfiguration.updateScrollTimeout );
-  };
+      if ( me.updateTimeout ) clearTimeout( me.updateTimeout );
+      me.updateTimeout = setTimeout( function() {
+        window.iFramePositionFixPolyfillConfiguration.log( 'updateScroll', me, scrollTop );
+        window.requestAnimationFrame( function (){
+          me.element.style.top = me.initialTop + ( scrollTop >= window.frameElement.offsetTop ? scrollTop - window.frameElement.offsetTop : scrollTop ) + 'px';
+        });
+      }, window.iFramePositionFixPolyfillConfiguration.updateScrollTimeout );
+    };
   // Initialize this polyfill when the document has been fully loaded, including CSS
   window.addEventListener('load', initPolyfill, false);
   // Observe for new added elements
