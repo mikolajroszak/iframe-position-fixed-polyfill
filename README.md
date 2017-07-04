@@ -69,6 +69,53 @@ You can set your configurations by defining these properties **_before_** you lo
 </html>
 ```
 
+# Helper Functions
+
+Helper functions are there and defined, so you can completely change the default behavior of the polyfill. 
+
+### log( _arg1, arg2, ..._ )
+
+This function will get any argument, and it will pass it to `console.log` if the **debug** flag is set to `true`.
+
+### setInitialState( _initialStyles_ )
+
+This function will set the initial state of the element. It accepts one argument:
+
+- **initialStyles:** the initial CSS style of the element. This is inherited directly from `document.styleSheets` dictionary, using the related `rule.style` property, for the matched element.
+
+On top of the arguments, you will also get:
+
+- **this:** the current instance. To fetch the DOM element use `this.element`.
+
+### updateState()
+
+This function will update the element state when the user will scroll. This function has no arguments.
+
+On top of the arguments, you will also get:
+
+- **this:** the current instance. To fetch the DOM element use `this.element`.
+
+You can change the behavior of these functions by defining them **_before_** you load the polyfill, like on this example:
+
+```html
+<!doctype html>
+<html>
+  <head>
+    ...
+  </head>
+  <body>
+    <script>
+      window.iFramePositionFixPolyfillConfiguration = {
+        log: function () {
+          console.info( '>> LOG OVERRIDEN: ', arguments );
+        }
+      }
+    </script>
+    <script src="src/polyfill.js"></script>
+  </body>
+</html>
+```
+
 # Demo
 
 Sure. Feel free [to take a look](https://julianxhokaxhiu.github.io/iframe-position-fixed-polyfill/)
