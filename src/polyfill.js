@@ -18,6 +18,7 @@
     window.iFramePositionFixPolyfillConfiguration.setInitialState = function ( initialStyles ) {
       var me = this;
 
+      me.updateTimeout = null;
       me.initialTop = initialStyles.top.indexOf('%') > -1 ? ( window.iFramePositionFixPolyfillConfiguration.parent.innerHeight / 100 * initialStyles.top.slice(0,-1) ) : me.element.offsetTop;
       me.element.style.top = me.initialTop + 'px';
     };
@@ -75,7 +76,6 @@
     if ( !isInitialized ) {
       // Define properties
       me.element = element;
-      me.updateTimeout = null;
 
       // Allow the user to configure the initial position through the external helper method
       window.iFramePositionFixPolyfillConfiguration.setInitialState.call(me, initialStyles);
