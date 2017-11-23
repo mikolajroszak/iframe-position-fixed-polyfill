@@ -1,7 +1,7 @@
 {
   "name": "iframe-position-fixed-polyfill",
   "description": "An iFrame position:fixed polyfill.",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "main": "src/polyfill.js",
   "author": {
     "name": "Julian Xhokaxhiu",

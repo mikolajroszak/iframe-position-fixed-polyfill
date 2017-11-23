@@ -56,7 +56,7 @@
   function initPolyfill () {
     if ( document.styleSheets ) {
       loop( document.styleSheets, function ( styleSheet ){
-        loop( styleSheet.rules, function ( rule ){
+        loop( styleSheet.cssRules, function ( rule ){
           if ( rule.style ) {
             if ( rule.style.position == 'fixed' ) {
               loop( document.querySelectorAll( rule.selectorText ), function ( element ){
